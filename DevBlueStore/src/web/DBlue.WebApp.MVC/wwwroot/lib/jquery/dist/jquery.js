@@ -9760,9 +9760,9 @@ jQuery.extend( {
 
 				// If we have data, let's convert it
 				} else {
-					statusText = response.state;
-					success = response.data;
-					error = response.error;
+					statusText = respoDBlue.state;
+					success = respoDBlue.data;
+					error = respoDBlue.error;
 					isSuccess = !error;
 				}
 			} else {
