@@ -2,6 +2,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Configuration
+.AddJsonFile("appsettings.json")
+    .AddEnvironmentVariables();
 
 var app = builder.Build();
 
