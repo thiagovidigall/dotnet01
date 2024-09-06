@@ -1,6 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using DBlue.WebApp.MVC.Models;
 using DBlue.WebApp.MVC.Services;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DBlue.WebApp.MVC.Controllers
@@ -31,7 +38,12 @@ namespace DBlue.WebApp.MVC.Controllers
             //API Registro
             var resposta = await _autenticacaoService.Registro(usuarioRegistro);
 
-            if (false) return View(usuarioRegistro);
+            // validações
+            //if (false) return View(usuarioLogin);
+
+            //Realizar Registro
+            await RealizarLogin(resposta);
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -51,8 +63,12 @@ namespace DBlue.WebApp.MVC.Controllers
             //API Login
             var resposta = await _autenticacaoService.Login(usuarioLogin);
 
+            // validações
+            //if (false) return View(usuarioLogin);
 
-            if (false) return View(usuarioLogin);
+            //Realizar login
+            await RealizarLogin(resposta);
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -61,6 +77,31 @@ namespace DBlue.WebApp.MVC.Controllers
         public async Task<IActionResult> Logout()
         {
             return RedirectToAction("Index", "Home");
+        }
+
+        private async Task RealizarLogin(UsuarioRespostaLogin resposta)
+        {
+            var token = ObterTokenFormatado(resposta.AccessToken);
+            var claims = new List<Claim>();
+            claims.Add(new Claim("JWT", resposta.AccessToken));
+            claims.AddRange(token.Claims);
+
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var authProperties = new AuthenticationProperties
+            {
+                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(60),
+                IsPersistent = true
+            };
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity),
+                authProperties);
+        }
+
+        private static JwtSecurityToken ObterTokenFormatado(string jwtToken)
+        {
+            return new JwtSecurityTokenHandler().ReadToken(jwtToken) as JwtSecurityToken;
         }
     }
 }
