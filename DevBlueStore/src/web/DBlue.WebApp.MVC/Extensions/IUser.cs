@@ -49,7 +49,7 @@ namespace DBlue.WebApp.MVC.Extensions
 
         public string ObterUserEmail()
         {
-            return EstaAutenticado() ? _accessor.HttpContext.User.getUserToken(): "";
+            return EstaAutenticado() ? _accessor.HttpContext.User.GetUserToken(): "";
         }
 
         public Guid ObterUserId()
