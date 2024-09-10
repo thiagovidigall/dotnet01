@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DBlue.WebApp.MVC.Controllers
 {
-    public class IdentidadeController : Controller
+    public class IdentidadeController : MainController
     {
 
         private readonly IAutenticacaoService _autenticacaoService;
@@ -39,7 +39,7 @@ namespace DBlue.WebApp.MVC.Controllers
             var resposta = await _autenticacaoService.Registro(usuarioRegistro);
 
             // validações
-            //if (false) return View(usuarioLogin);
+            if (ResponsePossuiErros(resposta.ResponseResult)) return View(usuarioRegistro);
 
             //Realizar Registro
             await RealizarLogin(resposta);
@@ -64,7 +64,7 @@ namespace DBlue.WebApp.MVC.Controllers
             var resposta = await _autenticacaoService.Login(usuarioLogin);
 
             // validações
-            //if (false) return View(usuarioLogin);
+            if (ResponsePossuiErros(resposta.ResponseResult)) return View(usuarioLogin);
 
             //Realizar login
             await RealizarLogin(resposta);
@@ -76,6 +76,7 @@ namespace DBlue.WebApp.MVC.Controllers
         [Route("sair")]
         public async Task<IActionResult> Logout()
         {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");
         }
 
