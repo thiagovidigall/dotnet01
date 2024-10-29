@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using DBlue.WebApp.MVC.Extensions;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -21,7 +22,8 @@ namespace DBlue.WebApp.MVC.Configuration
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/erro/500");                //middleware para erros não detectados
+                app.UseStatusCodePagesWithRedirects("/erro/{0}");   // middleware para erros com status code
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
@@ -30,6 +32,8 @@ namespace DBlue.WebApp.MVC.Configuration
             app.UseRouting();            
 
             app.UseIdentityConfiguration();
+
+            app.UseMiddleware<ExceptionMiddleware>();                //middleware customizado para alguns status code
 
             app.UseEndpoints(endpoints =>
             {
