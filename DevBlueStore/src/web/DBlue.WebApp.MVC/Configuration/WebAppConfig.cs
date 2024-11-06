@@ -1,39 +1,45 @@
-﻿using DBlue.WebApp.MVC.Extensions;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using DBlue.WebApp.MVC.Extensions;
 
 namespace DBlue.WebApp.MVC.Configuration
 {
     public static class WebAppConfig
     {
-
-        public static void AddMvcConfiguration(this IServiceCollection services)
+        public static void AddMvcConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddControllersWithViews();
+
+            services.Configure<AppSettings>(configuration);
         }
 
         public static void UseMvcConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/erro/500");                //middleware para erros não detectados
-                app.UseStatusCodePagesWithRedirects("/erro/{0}");   // middleware para erros com status code
-                app.UseHsts();
-            }
+            app.UseExceptionHandler("/erro/500");
+            app.UseStatusCodePagesWithRedirects("/erro/{0}");
+            app.UseHsts();
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
+            //else
+            //{
+            //    app.UseExceptionHandler("/erro/500");
+            //    app.UseStatusCodePagesWithRedirects("/erro/{0}");
+            //    app.UseHsts();
+            //}
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseRouting();            
+            app.UseRouting();
 
             app.UseIdentityConfiguration();
 
-            app.UseMiddleware<ExceptionMiddleware>();                //middleware customizado para alguns status code
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
@@ -41,7 +47,6 @@ namespace DBlue.WebApp.MVC.Configuration
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-
         }
     }
 }

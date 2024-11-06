@@ -1,15 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace DBlue.WebApp.MVC.Extensions
 {
     public class ExceptionMiddleware
     {
-
         private readonly RequestDelegate _next;
 
         public ExceptionMiddleware(RequestDelegate next)

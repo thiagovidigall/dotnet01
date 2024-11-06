@@ -1,28 +1,24 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace DBlue.WebApp.MVC.Extensions
 {
     public interface IUser
     {
-
-        string Name { get;  }
-         Guid ObterUserId();
-         string ObterUserEmail();
-         string ObterUserToken();
-         bool EstaAutenticado();
-         bool PossuiRole(string role);
-         IEnumerable<Claim> ObterClaims();
-         HttpContext ObterHttpContext();
+        string Name { get; }
+        Guid ObterUserId();
+        string ObterUserEmail();
+        string ObterUserToken();
+        bool EstaAutenticado();
+        bool PossuiRole(string role);
+        IEnumerable<Claim> ObterClaims();
+        HttpContext ObterHttpContext();
     }
 
     public class AspNetUser : IUser
     {
-
         private readonly IHttpContextAccessor _accessor;
 
         public AspNetUser(IHttpContextAccessor accessor)
@@ -32,9 +28,29 @@ namespace DBlue.WebApp.MVC.Extensions
 
         public string Name => _accessor.HttpContext.User.Identity.Name;
 
+        public Guid ObterUserId()
+        {
+            return EstaAutenticado() ? Guid.Parse(_accessor.HttpContext.User.GetUserId()) : Guid.Empty;
+        }
+
+        public string ObterUserEmail()
+        {
+            return EstaAutenticado() ? _accessor.HttpContext.User.GetUserEmail() : "";
+        }
+
+        public string ObterUserToken()
+        {
+            return EstaAutenticado() ? _accessor.HttpContext.User.GetUserToken() : "";
+        }
+
         public bool EstaAutenticado()
         {
             return _accessor.HttpContext.User.Identity.IsAuthenticated;
+        }
+
+        public bool PossuiRole(string role)
+        {
+            return _accessor.HttpContext.User.IsInRole(role);
         }
 
         public IEnumerable<Claim> ObterClaims()
@@ -46,33 +62,13 @@ namespace DBlue.WebApp.MVC.Extensions
         {
             return _accessor.HttpContext;
         }
-
-        public string ObterUserEmail()
-        {
-            return EstaAutenticado() ? _accessor.HttpContext.User.GetUserToken(): "";
-        }
-
-        public Guid ObterUserId()
-        {
-           return EstaAutenticado() ? Guid.Parse(_accessor.HttpContext.User.GetUserId()) : Guid.Empty;
-        }
-
-        public string ObterUserToken()
-        {
-            return EstaAutenticado() ? _accessor.HttpContext.User.GetUserToken() : "";
-        }
-
-        bool IUser.PossuiRole(string role)
-        {
-            return _accessor.HttpContext.User.IsInRole(role);
-        }
     }
 
     public static class ClaimsPrincipalExtensions
     {
         public static string GetUserId(this ClaimsPrincipal principal)
         {
-            if(principal == null)
+            if (principal == null)
             {
                 throw new ArgumentException(nameof(principal));
             }
@@ -83,7 +79,7 @@ namespace DBlue.WebApp.MVC.Extensions
 
         public static string GetUserEmail(this ClaimsPrincipal principal)
         {
-            if(principal == null)
+            if (principal == null)
             {
                 throw new ArgumentException(nameof(principal));
             }
@@ -94,7 +90,7 @@ namespace DBlue.WebApp.MVC.Extensions
 
         public static string GetUserToken(this ClaimsPrincipal principal)
         {
-            if(principal == null)
+            if (principal == null)
             {
                 throw new ArgumentException(nameof(principal));
             }
@@ -102,11 +98,5 @@ namespace DBlue.WebApp.MVC.Extensions
             var claim = principal.FindFirst("JWT");
             return claim?.Value;
         }
-
-
-
-    } 
-
+    }
 }
-
-

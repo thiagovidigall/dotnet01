@@ -1,8 +1,8 @@
-﻿using DBlue.WebApp.MVC.Extensions;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using DBlue.WebApp.MVC.Extensions;
 
 namespace DBlue.WebApp.MVC.Services
 {
@@ -14,14 +14,13 @@ namespace DBlue.WebApp.MVC.Services
                 JsonSerializer.Serialize(dado),
                 Encoding.UTF8,
                 "application/json");
-                
         }
 
         protected async Task<T> DeserializarObjetoResponse<T>(HttpResponseMessage responseMessage)
         {
             var options = new JsonSerializerOptions
             {
-                PropertyNameCaseInsensitive = true,
+                PropertyNameCaseInsensitive = true
             };
 
             return JsonSerializer.Deserialize<T>(await responseMessage.Content.ReadAsStringAsync(), options);

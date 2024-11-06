@@ -9,9 +9,8 @@ using DBlue.WebApp.MVC.Models;
 
 namespace DBlue.WebApp.MVC.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : MainController
     {
-
         public IActionResult Index()
         {
             return View();
