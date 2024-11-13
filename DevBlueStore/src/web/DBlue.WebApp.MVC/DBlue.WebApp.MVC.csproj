@@ -9,8 +9,19 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="Views\Catalogo\Index.cshtml" />
-		<None Include="Views\Catalogo\ProdutoDetalhe.cshtml" />
+	  <Compile Remove="Views\Catalogo\**" />
+	  <Content Remove="Views\Catalogo\**" />
+	  <EmbeddedResource Remove="Views\Catalogo\**" />
+	  <None Remove="Views\Catalogo\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Controllers\CatalogoController.cs" />
+	  <Compile Remove="Services\CatalogoService.cs" />
+	  <Compile Remove="Services\ICatalogoService.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<None Include="Views\Home\Index.cshtml" />
 		<None Include="Views\Home\Privacy.cshtml" />
 		<None Include="Views\Identidade\Login.cshtml" />
