@@ -29,5 +29,9 @@
     <Folder Include="Models\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\building blocks\DBlue.WebAPI.Core\DBlue.WebAPI.Core.csproj" />
+  </ItemGroup>
+
 
 </Project>
