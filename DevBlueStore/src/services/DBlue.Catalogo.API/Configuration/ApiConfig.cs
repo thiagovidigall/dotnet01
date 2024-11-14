@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using DBlue.Catalogo.API.Data;
-using DBlue.WebAPI.Core.Identidade;
 
 namespace DBlue.Catalogo.API.Configuration
 {
@@ -42,7 +41,7 @@ namespace DBlue.Catalogo.API.Configuration
 
             app.UseCors("Total");
 
-            app.UseAuthConfiguration();
+            //app.UseAuthConfiguration();
 
             app.UseEndpoints(endpoints =>
             {

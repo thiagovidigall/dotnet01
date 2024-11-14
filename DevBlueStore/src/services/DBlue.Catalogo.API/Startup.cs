@@ -4,7 +4,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using DBlue.Catalogo.API.Configuration;
-using DBlue.WebAPI.Core.Identidade;
 
 namespace DBlue.Catalogo.API
 {
@@ -32,7 +31,7 @@ namespace DBlue.Catalogo.API
         {
             services.AddApiConfiguration(Configuration);
 
-            services.AddJwtConfiguration(Configuration);
+            //services.AddJwtConfiguration(Configuration);
 
             services.AddSwaggerConfiguration();
 
