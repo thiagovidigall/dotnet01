@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using DBlue.WebApp.MVC.Extensions;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace DBlue.WebApp.MVC.Configuration
 {
@@ -21,6 +23,7 @@ namespace DBlue.WebApp.MVC.Configuration
             //app.UseExceptionHandler("/erro/500");
             //app.UseStatusCodePagesWithRedirects("/erro/{0}");
             //app.UseHsts();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -39,13 +42,21 @@ namespace DBlue.WebApp.MVC.Configuration
 
             app.UseIdentityConfiguration();
 
+            var supportedCultures = new[] { new CultureInfo("pt-BR") };
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("pt-BR"),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
+            });
+
             app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Catalogo}/{action=Index}/{id?}");
             });
         }
     }
