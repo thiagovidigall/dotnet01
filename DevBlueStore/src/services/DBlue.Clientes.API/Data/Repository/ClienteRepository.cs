@@ -24,7 +24,7 @@ namespace DBlue.Clientes.API.Data.Repository
 
         public Task<Cliente> ObterPorCpf(string cpf)
         {
-            return _context.Clientes.FirstOrDefaultAsync(c => c.Cpf == cpf);
+            return _context.Clientes.FirstOrDefaultAsync(c => c.Cpf.Numero == cpf);
         }
 
         public void Adicionar(Cliente cliente)

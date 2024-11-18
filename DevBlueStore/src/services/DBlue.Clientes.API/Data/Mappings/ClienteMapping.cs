@@ -19,9 +19,9 @@ namespace DBlue.Clientes.API.Data.Mappings
             {
                 tf.Property(c => c.Numero)
                     .IsRequired()
-                    .HasMaxLength(Cpf.CpfMaxLength)
+                    .HasMaxLength(11)
                     .HasColumnName("Cpf")
-                    .HasColumnType($"varchar({Cpf.CpfMaxLength})");
+                    .HasColumnType($"varchar(11)");
             });
 
             builder.OwnsOne(c => c.Email, tf =>
@@ -29,7 +29,7 @@ namespace DBlue.Clientes.API.Data.Mappings
                 tf.Property(c => c.Endereco)
                     .IsRequired()
                     .HasColumnName("Email")
-                    .HasColumnType($"varchar({Email.EnderecoMaxLength})");
+                    .HasColumnType($"varchar(254)");
             });
 
             // 1 : 1 => Aluno : Endereco
