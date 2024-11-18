@@ -23,6 +23,13 @@ namespace DBlue.Clientes.API.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
+            //modelBuilder.Ignore<Event>();
+            //modelBuilder.Entity<Cliente>()
+            //    .Ignore(c => c.Cpf);
+
+            //modelBuilder.Entity<Cliente>()
+            //    .Ignore(c => c.Email);
+
             foreach (var property in modelBuilder.Model.GetEntityTypes().SelectMany(
                 e => e.GetProperties().Where(p => p.ClrType == typeof(string))))
                 property.SetColumnType("varchar(100)");
