@@ -12,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using DBlue.Identidade.API.Extensions;
 using DBlue.Identidade.API.Models;
 using DBlue.WebAPI.Core.Identidade;
+using DBlue.WebAPI.Core.Controllers;
 
 namespace DBlue.Identidade.API.Controllers
 {

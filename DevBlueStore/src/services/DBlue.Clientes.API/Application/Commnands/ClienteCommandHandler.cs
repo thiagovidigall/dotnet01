@@ -2,7 +2,7 @@
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
-//using DBlue.Clientes.API.Application.Events;
+using DBlue.Clientes.API.Application.Events;
 using DBlue.Clientes.API.Models;
 using DBlue.Core.Messages;
 
@@ -34,7 +34,7 @@ namespace DBlue.Clientes.API.Application.Commands
 
             _clienteRepository.Adicionar(cliente);
 
-            //cliente.AdicionarEvento(new ClienteRegistradoEvent(message.Id, message.Nome, message.Email, message.Cpf));
+            cliente.AdicionarEvento(new ClienteRegistradoEvent(message.Id, message.Nome, message.Email, message.Cpf));
 
             return await PersistirDados(_clienteRepository.UnitOfWork);
         }

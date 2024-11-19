@@ -23,9 +23,5 @@
     <ProjectReference Include="..\..\building blocks\DBlue.WebAPI.Core\DBlue.WebAPI.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 
 </Project>

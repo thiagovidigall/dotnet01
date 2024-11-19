@@ -6,6 +6,7 @@ using DBlue.Core.Mediator;
 using MediatR;
 using DBlue.Clientes.API.Application.Commands;
 using FluentValidation.Results;
+using DBlue.Clientes.API.Application.Events;
 
 namespace DBlue.Clientes.API.Configuration
 {
@@ -16,7 +17,7 @@ namespace DBlue.Clientes.API.Configuration
             services.AddScoped<IMediatorHandler, MediatorHandler>();
             services.AddScoped<IRequestHandler<RegistrarClienteCommand, ValidationResult>, ClienteCommandHandler>();
 
-            //services.AddScoped<INotificationHandler<ClienteRegistradoEvent>, ClienteEventHandler>();
+            services.AddScoped<INotificationHandler<ClienteRegistradoEvent>, ClienteEventHandler>();
 
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<ClientesContext>();

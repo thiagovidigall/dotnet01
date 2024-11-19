@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using DBlue.Catalogo.API.Models;
 using DBlue.WebAPI.Core.Identidade;
+using DBlue.WebAPI.Core.Controllers;
 
 namespace DBlue.Catalogo.API.Controllers
 {
-    [ApiController]
     [Authorize]
-    public class CatalogoController : Controller
+    public class CatalogoController : MainController
     {
         private readonly IProdutoRepository _produtoRepository;
 

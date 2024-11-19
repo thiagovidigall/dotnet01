@@ -2,6 +2,8 @@
 using DBlue.Core.Messages;
 using System.Threading.Tasks;
 using MediatR;
+using DBlue.Core.Mediator;
+using DBlue.Core.DomainObjects;
 
 namespace DBlue.Core.Mediator
 {
