@@ -81,9 +81,9 @@ namespace DBlue.Clientes.API.Migrations
                     b.ToTable("Enderecos");
                 });
 
-            modelBuilder.Entity("NSE.Clientes.API.Models.Cliente", b =>
+            modelBuilder.Entity("DBlue.Clientes.API.Models.Cliente", b =>
             {
-                b.OwnsOne("NSE.Core.DomainObjects.Cpf", "Cpf", b1 =>
+                b.OwnsOne("DBlue.Core.DomainObjects.Cpf", "Cpf", b1 =>
                 {
                     b1.Property<Guid>("ClienteId")
                         .HasColumnType("uniqueidentifier");
@@ -102,7 +102,7 @@ namespace DBlue.Clientes.API.Migrations
                         .HasForeignKey("ClienteId");
                 });
 
-                b.OwnsOne("NSE.Core.DomainObjects.Email", "Email", b1 =>
+                b.OwnsOne("DBlue.Core.DomainObjects.Email", "Email", b1 =>
                 {
                     b1.Property<Guid>("ClienteId")
                         .HasColumnType("uniqueidentifier");

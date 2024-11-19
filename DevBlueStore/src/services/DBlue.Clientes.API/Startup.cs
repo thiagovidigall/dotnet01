@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using DBlue.Clientes.API.Configuration;
 using DBlue.WebAPI.Core.Identidade;
-
+using MediatR;
 
 namespace DBlue.Clientes.API
 {
@@ -37,7 +37,7 @@ namespace DBlue.Clientes.API
 
             services.AddSwaggerConfiguration();
 
-            //services.AddMediatR(typeof(Startup));
+            services.AddMediatR(typeof(Startup));
 
             services.RegisterServices();
         }
