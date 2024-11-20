@@ -1,16 +1,17 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
 using DBlue.Clientes.API.Models;
 using DBlue.Core.Data;
 using DBlue.Core.DomainObjects;
 using DBlue.Core.Mediator;
+using DBlue.Core.Messages;
 
 namespace DBlue.Clientes.API.Data
 {
     public sealed class ClientesContext : DbContext, IUnitOfWork
     {
-
         private readonly IMediatorHandler _mediatorHandler;
 
         public ClientesContext(DbContextOptions<ClientesContext> options, IMediatorHandler mediatorHandler)
@@ -26,8 +27,9 @@ namespace DBlue.Clientes.API.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Ignore<ValidationResult>();
+            modelBuilder.Ignore<Event>();
 
-            //modelBuilder.Ignore<Event>();
             //modelBuilder.Entity<Cliente>()
             //    .Ignore(c => c.Cpf);
 
@@ -41,8 +43,6 @@ namespace DBlue.Clientes.API.Data
             foreach (var relationship in modelBuilder.Model.GetEntityTypes()
                 .SelectMany(e => e.GetForeignKeys())) relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;
 
-            modelBuilder.Entity<Cpf>().HasNoKey();
-
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ClientesContext).Assembly);
         }
 
@@ -54,29 +54,28 @@ namespace DBlue.Clientes.API.Data
             return sucesso;
         }
     }
-}
 
-
-public static class MediatorExtension
-{
-    public static async Task PublicarEventos<T>(this IMediatorHandler mediator, T ctx) where T : DbContext
+    public static class MediatorExtension
     {
-        var domainEntities = ctx.ChangeTracker
-            .Entries<Entity>()
-            .Where(x => x.Entity.Notificacoes != null && x.Entity.Notificacoes.Any());
+        public static async Task PublicarEventos<T>(this IMediatorHandler mediator, T ctx) where T : DbContext
+        {
+            var domainEntities = ctx.ChangeTracker
+                .Entries<Entity>()
+                .Where(x => x.Entity.Notificacoes != null && x.Entity.Notificacoes.Any());
 
-        var domainEvents = domainEntities
-            .SelectMany(x => x.Entity.Notificacoes)
-            .ToList();
+            var domainEvents = domainEntities
+                .SelectMany(x => x.Entity.Notificacoes)
+                .ToList();
 
-        domainEntities.ToList()
-            .ForEach(entity => entity.Entity.LimparEventos());
+            domainEntities.ToList()
+                .ForEach(entity => entity.Entity.LimparEventos());
 
-        var tasks = domainEvents
-            .Select(async (domainEvent) => {
-                await mediator.PublicarEvento(domainEvent);
-            });
+            var tasks = domainEvents
+                .Select(async (domainEvent) => {
+                    await mediator.PublicarEvento(domainEvent);
+                });
 
-        await Task.WhenAll(tasks);
+            await Task.WhenAll(tasks);
+        }
     }
 }

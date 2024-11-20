@@ -56,7 +56,6 @@ namespace DBlue.Clientes.API.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-
             migrationBuilder.DropTable(
                 name: "Enderecos");
 

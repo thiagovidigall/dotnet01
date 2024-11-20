@@ -82,44 +82,44 @@ namespace DBlue.Clientes.API.Migrations
                 });
 
             modelBuilder.Entity("DBlue.Clientes.API.Models.Cliente", b =>
-            {
-                b.OwnsOne("DBlue.Core.DomainObjects.Cpf", "Cpf", b1 =>
                 {
-                    b1.Property<Guid>("ClienteId")
-                        .HasColumnType("uniqueidentifier");
+                    b.OwnsOne("DBlue.Core.DomainObjects.Cpf", "Cpf", b1 =>
+                        {
+                            b1.Property<Guid>("ClienteId")
+                                .HasColumnType("uniqueidentifier");
 
-                    b1.Property<string>("Numero")
-                        .IsRequired()
-                        .HasColumnName("Cpf")
-                        .HasColumnType("varchar(11)")
-                        .HasMaxLength(11);
+                            b1.Property<string>("Numero")
+                                .IsRequired()
+                                .HasColumnName("Cpf")
+                                .HasColumnType("varchar(11)")
+                                .HasMaxLength(11);
 
-                    b1.HasKey("ClienteId");
+                            b1.HasKey("ClienteId");
 
-                    b1.ToTable("Clientes");
+                            b1.ToTable("Clientes");
 
-                    b1.WithOwner()
-                        .HasForeignKey("ClienteId");
+                            b1.WithOwner()
+                                .HasForeignKey("ClienteId");
+                        });
+
+                    b.OwnsOne("DBlue.Core.DomainObjects.Email", "Email", b1 =>
+                        {
+                            b1.Property<Guid>("ClienteId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Endereco")
+                                .IsRequired()
+                                .HasColumnName("Email")
+                                .HasColumnType("varchar(254)");
+
+                            b1.HasKey("ClienteId");
+
+                            b1.ToTable("Clientes");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ClienteId");
+                        });
                 });
-
-                b.OwnsOne("DBlue.Core.DomainObjects.Email", "Email", b1 =>
-                {
-                    b1.Property<Guid>("ClienteId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b1.Property<string>("Endereco")
-                        .IsRequired()
-                        .HasColumnName("Email")
-                        .HasColumnType("varchar(254)");
-
-                    b1.HasKey("ClienteId");
-
-                    b1.ToTable("Clientes");
-
-                    b1.WithOwner()
-                        .HasForeignKey("ClienteId");
-                });
-            });
 
             modelBuilder.Entity("DBlue.Clientes.API.Models.Endereco", b =>
                 {

@@ -20,25 +20,21 @@ namespace DBlue.Clientes.API.Data.Mappings
                 tf.Property(c => c.Numero)
                     .IsRequired()
                     .HasMaxLength(Cpf.CpfMaxLength)
-                //.IsUnicode(false);
-                .HasColumnName("Cpf")
-                .HasColumnType($"varchar({Cpf.CpfMaxLength})");
+                    .HasColumnName("Cpf")
+                    .HasColumnType($"varchar({Cpf.CpfMaxLength})");
             });
 
             builder.OwnsOne(c => c.Email, tf =>
             {
                 tf.Property(c => c.Endereco)
                     .IsRequired()
-                //.IsUnicode(false);
-                .HasColumnName("Email")
-                .HasColumnType($"varchar({Email.EnderecoMaxLength})");
+                    .HasColumnName("Email")
+                    .HasColumnType($"varchar({Email.EnderecoMaxLength})");
             });
 
             // 1 : 1 => Aluno : Endereco
             builder.HasOne(c => c.Endereco)
                 .WithOne(c => c.Cliente);
-                //.HasForeignKey<Endereco>(e => e.ClienteId);
-                   
 
             builder.ToTable("Clientes");
         }
