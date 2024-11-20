@@ -7,6 +7,7 @@ using MediatR;
 using DBlue.Clientes.API.Application.Commands;
 using FluentValidation.Results;
 using DBlue.Clientes.API.Application.Events;
+using DBlue.Clientes.API.Services;
 
 namespace DBlue.Clientes.API.Configuration
 {
@@ -21,6 +22,8 @@ namespace DBlue.Clientes.API.Configuration
 
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<ClientesContext>();
+
+            services.AddHostedService<RegistroClienteIntegrationHandler>();
         }
     }
 }

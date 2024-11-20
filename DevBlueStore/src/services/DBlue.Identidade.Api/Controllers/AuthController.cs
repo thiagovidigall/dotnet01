@@ -13,6 +13,8 @@ using DBlue.Identidade.API.Extensions;
 using DBlue.Identidade.API.Models;
 using DBlue.WebAPI.Core.Identidade;
 using DBlue.WebAPI.Core.Controllers;
+using DBlue.Core.Messages.Integration;
+using EasyNetQ;
 
 namespace DBlue.Identidade.API.Controllers
 {
@@ -22,14 +24,16 @@ namespace DBlue.Identidade.API.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly AppSettings _appSettings;
+        private IBus _bus;
 
-        public AuthController(SignInManager<IdentityUser> signInManager, 
+        public AuthController(SignInManager<IdentityUser> signInManager,
                               UserManager<IdentityUser> userManager,
-                              IOptions<AppSettings> appSettings)
+                              IOptions<AppSettings> appSettings, IBus bus)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _appSettings = appSettings.Value;
+            _bus = bus;
         }
 
         [HttpPost("nova-conta")]
@@ -50,6 +54,9 @@ namespace DBlue.Identidade.API.Controllers
 
             if (result.Succeeded)
             {
+                // add integração com a api client
+               var sucesso = await RegistrarCliente(usuarioRegistro);
+
                 return CustomResponse(await GerarJwt(usuarioRegistro.Email));
             }
 
@@ -59,6 +66,20 @@ namespace DBlue.Identidade.API.Controllers
             }
 
             return CustomResponse();
+        }
+
+        private async Task<ResponseMessage> RegistrarCliente(UsuarioRegistro usuarioRegistro)
+        {
+            var usuario = await _userManager.FindByEmailAsync(usuarioRegistro.Email);
+
+            var usuarioRegistrado = new UsuarioRegistradoIntegrationEvent(
+                Guid.Parse(usuario.Id), usuarioRegistro.Nome, usuarioRegistro.Email, usuarioRegistro.Cpf);
+
+            _bus = RabbitHutch.CreateBus("host=localhost:5672");
+
+            var sucesso = await _bus.RequestAsync<UsuarioRegistradoIntegrationEvent, ResponseMessage>(usuarioRegistrado);
+
+            return sucesso;
         }
 
         [HttpPost("autenticar")]
