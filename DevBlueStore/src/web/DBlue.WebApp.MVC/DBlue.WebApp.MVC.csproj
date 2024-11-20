@@ -37,6 +37,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\building blocks\DBlue.Core\DBlue.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Content Update="wwwroot\js\site.js">
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

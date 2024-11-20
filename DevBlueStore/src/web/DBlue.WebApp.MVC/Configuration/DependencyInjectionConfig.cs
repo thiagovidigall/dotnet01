@@ -4,6 +4,7 @@ using DBlue.WebApp.MVC.Extensions;
 using DBlue.WebApp.MVC.Services;
 using DBlue.WebApp.MVC.Services.Handlers;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Mvc.DataAnnotations;
 
 namespace DBlue.WebApp.MVC.Configuration
 {
@@ -11,6 +12,8 @@ namespace DBlue.WebApp.MVC.Configuration
     {
         public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddSingleton<IValidationAttributeAdapterProvider, CpfValidationAttributeAdapterProvider>();
+
             services.AddTransient<HttpClientAuthorizationDelegatingHandler>();
             services.AddHttpClient<IAutenticacaoService, AutenticacaoService>();
 
