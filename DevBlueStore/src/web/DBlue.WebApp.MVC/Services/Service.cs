@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using DBlue.WebApp.MVC.Extensions;
+using DBlue.WebApp.MVC.Models;
 
 namespace DBlue.WebApp.MVC.Services
 {
@@ -42,6 +43,11 @@ namespace DBlue.WebApp.MVC.Services
 
             response.EnsureSuccessStatusCode();
             return true;
+        }
+
+        protected ResponseResult RetornoOk()
+        {
+            return new ResponseResult();
         }
     }
 }
