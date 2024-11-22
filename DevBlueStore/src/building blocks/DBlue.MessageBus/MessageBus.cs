@@ -41,6 +41,15 @@ namespace DBlue.MessageBus
             });
         }
 
+        private void OnDisconnect(object s, EventArgs e)
+        {
+            var policy = Policy.Handle<EasyNetQException>()
+                .Or<BrokerUnreachableException>()
+                .RetryForever();
+
+            policy.Execute(TryConnect);
+        }
+
         public void Publish<T>(T message) where T : IntegrationEvent
         {
             TryConnect();
@@ -93,14 +102,6 @@ namespace DBlue.MessageBus
             return _bus.RespondAsync(responder);
         }
 
-        private void OnDisconnect(object s, EventArgs e)
-        {
-            var policy = Policy.Handle<EasyNetQException>()
-                .Or<BrokerUnreachableException>()
-                .RetryForever();
-
-            policy.Execute(TryConnect);
-        }
 
         public void Dispose()
         {
