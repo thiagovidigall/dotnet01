@@ -23,7 +23,8 @@ namespace DBlue.Clientes.API.Configuration
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<ClientesContext>();
 
-            services.AddHostedService<RegistroClienteIntegrationHandler>();
+            // vai ser responsabilidade da abstração "MessageBusConfig"
+            //services.AddHostedService<RegistroClienteIntegrationHandler>();
         }
     }
 }
