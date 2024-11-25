@@ -2,6 +2,7 @@
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using DBlue.Core.Communication;
 using DBlue.WebApp.MVC.Extensions;
 using DBlue.WebApp.MVC.Models;
 

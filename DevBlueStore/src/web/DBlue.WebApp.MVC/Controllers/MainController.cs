@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using DBlue.WebApp.MVC.Models;
+using DBlue.Core.Communication;
 
 namespace DBlue.WebApp.MVC.Controllers
 {
