@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using DBlue.WebApp.MVC.Models;
 using DBlue.WebApp.MVC.Services;
-using Microsoft.AspNetCore.Mvc;
 
 namespace DBlue.WebApp.MVC.Controllers
 {
+    [Authorize]
     public class CarrinhoController : MainController
     {
         private readonly ICarrinhoService _carrinhoService;

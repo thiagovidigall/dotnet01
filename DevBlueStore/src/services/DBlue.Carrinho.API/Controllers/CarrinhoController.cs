@@ -1,15 +1,17 @@
-﻿using DBlue.Carrinho.API.Data;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using DBlue.Carrinho.API.Data;
 using DBlue.Carrinho.API.Model;
 using DBlue.WebAPI.Core.Controllers;
 using DBlue.WebAPI.Core.Usuario;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DBlue.Carrinho.API.Controllers
 {
+    [Authorize]
     public class CarrinhoController : MainController
     {
         private readonly IAspNetUser _user;

@@ -23,11 +23,13 @@ namespace DBlue.Identidade.API.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly AppSettings _appSettings;
+
         private readonly IMessageBus _bus;
 
         public AuthController(SignInManager<IdentityUser> signInManager,
                               UserManager<IdentityUser> userManager,
-                              IOptions<AppSettings> appSettings, IMessageBus bus)
+                              IOptions<AppSettings> appSettings,
+                              IMessageBus bus)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -38,8 +40,6 @@ namespace DBlue.Identidade.API.Controllers
         [HttpPost("nova-conta")]
         public async Task<ActionResult> Registrar(UsuarioRegistro usuarioRegistro)
         {
-            // return new StatusCodeResult(404);
-
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var user = new IdentityUser
@@ -53,14 +53,12 @@ namespace DBlue.Identidade.API.Controllers
 
             if (result.Succeeded)
             {
-                // add integração com a api client, ratar error caso aconteca
-               var clienteResult = await RegistrarCliente(usuarioRegistro);
+                var clienteResult = await RegistrarCliente(usuarioRegistro);
 
-                if(!clienteResult.ValidateResult.IsValid)
+                if (!clienteResult.ValidationResult.IsValid)
                 {
-                    //excluir usuario
                     await _userManager.DeleteAsync(user);
-                    return CustomResponse(clienteResult.ValidateResult);
+                    return CustomResponse(clienteResult.ValidationResult);
                 }
 
                 return CustomResponse(await GerarJwt(usuarioRegistro.Email));
@@ -72,7 +70,7 @@ namespace DBlue.Identidade.API.Controllers
             }
 
             return CustomResponse();
-        }       
+        }
 
         [HttpPost("autenticar")]
         public async Task<ActionResult> Login(UsuarioLogin usuarioLogin)
@@ -168,7 +166,7 @@ namespace DBlue.Identidade.API.Controllers
 
             var usuarioRegistrado = new UsuarioRegistradoIntegrationEvent(
                 Guid.Parse(usuario.Id), usuarioRegistro.Nome, usuarioRegistro.Email, usuarioRegistro.Cpf);
-            
+
             try
             {
                 return await _bus.RequestAsync<UsuarioRegistradoIntegrationEvent, ResponseMessage>(usuarioRegistrado);

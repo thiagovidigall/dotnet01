@@ -8,7 +8,6 @@ namespace DBlue.WebApp.MVC.Controllers
     public class CatalogoController : MainController
     {
         private readonly ICatalogoService _catalogoService;
-        //private readonly ICatalogoServiceRefit _catalogoService;
 
         public CatalogoController(ICatalogoService catalogoService)
         {

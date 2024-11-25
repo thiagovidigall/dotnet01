@@ -1,8 +1,8 @@
-﻿using DBlue.WebApp.MVC.Models;
-using System;
+﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
+using DBlue.WebApp.MVC.Models;
 using DBlue.WebApp.MVC.Extensions;
 
 namespace DBlue.WebApp.MVC.Services

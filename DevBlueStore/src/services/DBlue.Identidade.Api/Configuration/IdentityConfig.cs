@@ -1,9 +1,8 @@
-﻿using DBlue.Identidade.Api.Data;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using DBlue.Identidade.Api.Data;
 using DBlue.Identidade.API.Extensions;
 using DBlue.WebAPI.Core.Identidade;
 
