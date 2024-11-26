@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <Compile Remove="Services\PagamentoService.cs" />
-    <Compile Remove="Services\PedidoService.cs" />
   </ItemGroup>
 
   <ItemGroup>

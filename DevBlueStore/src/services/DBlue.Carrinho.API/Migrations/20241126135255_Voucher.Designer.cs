@@ -4,14 +4,16 @@ using DBlue.Carrinho.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DBlue.Carrinho.API.Migrations
 {
     [DbContext(typeof(CarrinhoContext))]
-    partial class CarrinhoContextModelSnapshot : ModelSnapshot
+    [Migration("20241126135255_Voucher")]
+    partial class Voucher
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
