@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using DBlue.Clientes.API.Models;
 using DBlue.Core.Data;
+using System;
 
 namespace DBlue.Clientes.API.Data.Repository
 {
@@ -32,9 +33,19 @@ namespace DBlue.Clientes.API.Data.Repository
             _context.Clientes.Add(cliente);
         }
 
+        public void AdicionarEndereco(Endereco endereco)
+        {
+            _context.Enderecos.Add(endereco);
+        }
+
         public void Dispose()
         {
             _context.Dispose();
+        }
+
+        public async Task<Endereco> ObterEnderecoPorId(Guid id)
+        {
+            return await _context.Enderecos.FirstOrDefaultAsync(e => e.ClienteId == id);
         }
     }
 }

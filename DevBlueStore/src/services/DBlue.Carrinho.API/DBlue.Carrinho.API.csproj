@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\building blocks\DBlue.MessageBus\DBlue.MessageBus.csproj" />
     <ProjectReference Include="..\..\building blocks\DBlue.WebAPI.Core\DBlue.WebAPI.Core.csproj" />
   </ItemGroup>
 
