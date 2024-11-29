@@ -55,9 +55,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Compras", "Compras", "{A0E8
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBlue.Bff.Compras", "src\api gateways\DBlue.Bff.Compras\DBlue.Bff.Compras.csproj", "{D5188D01-BCA4-46A3-BBE8-DB2F570C97FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBlue.Pedidos.Domain", "src\services\DBlue.Pedidos.Domain\DBlue.Pedidos.Domain.csproj", "{3DC10BF3-5E6E-4BC2-A4FA-FE0B4DFD10FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBlue.Pedidos.Domain", "src\services\DBlue.Pedidos.Domain\DBlue.Pedidos.Domain.csproj", "{3DC10BF3-5E6E-4BC2-A4FA-FE0B4DFD10FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBlue.Pedidos.Infra", "src\services\DBlue.Pedidos.Infra\DBlue.Pedidos.Infra.csproj", "{A393BB55-3B6E-436F-8528-FC381C11D4BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBlue.Pedidos.Infra", "src\services\DBlue.Pedidos.Infra\DBlue.Pedidos.Infra.csproj", "{A393BB55-3B6E-436F-8528-FC381C11D4BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBlue.Pagamentos.OperOne", "src\services\DBlue.Pagamentos.OperOne\DBlue.Pagamentos.OperOne.csproj", "{4AFBE189-A47B-4428-8351-9B51E4F8D246}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -117,6 +119,10 @@ Global
 		{A393BB55-3B6E-436F-8528-FC381C11D4BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A393BB55-3B6E-436F-8528-FC381C11D4BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A393BB55-3B6E-436F-8528-FC381C11D4BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AFBE189-A47B-4428-8351-9B51E4F8D246}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AFBE189-A47B-4428-8351-9B51E4F8D246}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AFBE189-A47B-4428-8351-9B51E4F8D246}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AFBE189-A47B-4428-8351-9B51E4F8D246}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -149,6 +155,7 @@ Global
 		{D5188D01-BCA4-46A3-BBE8-DB2F570C97FB} = {A0E8F9D9-7132-423E-BEF5-7D709D594DF4}
 		{3DC10BF3-5E6E-4BC2-A4FA-FE0B4DFD10FE} = {9F1C1979-00B3-43A5-931B-B9C6BB7C673D}
 		{A393BB55-3B6E-436F-8528-FC381C11D4BE} = {9F1C1979-00B3-43A5-931B-B9C6BB7C673D}
+		{4AFBE189-A47B-4428-8351-9B51E4F8D246} = {0F3F7DB0-D7CD-4AF6-82B9-94E251314439}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5606EEDC-FAFE-4576-8545-D4839B3F8912}
